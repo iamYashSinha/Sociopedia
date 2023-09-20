@@ -19,7 +19,16 @@ import FlexBetween from "components/FlexBetween";
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
   lastName: yup.string().required("required"),
-  email: yup.string().email("invalid email").required("required"),
+  email: yup
+  .string()
+  .email("invalid email")
+  .required("required")
+  .test("is-edu-email", "Only .edu emails are allowed", (value) => {
+    if (value) {
+      return value.endsWith(".edu");
+    }
+    return true; // If the email field is empty, don't perform this test.
+  }),
   password: yup.string().required("required"),
   location: yup.string().required("required"),
   occupation: yup.string().required("required"),
