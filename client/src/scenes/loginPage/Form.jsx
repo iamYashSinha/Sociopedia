@@ -107,8 +107,28 @@ const Form = () => {
   };
 
   const handleFormSubmit = async (values, onSubmitProps) => {
+    alert("Server has been started again Please wait we're login you in!")
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
+  };
+
+  const [values, setValues] = useState({
+    email: '',
+    password: '',
+  });
+
+
+  const handleTestUser = () => {
+    // Modify the initialValuesLogin object directly
+    initialValuesLogin.email = 'testuser@yahoo.edu';
+    initialValuesLogin.password = '123456789';
+
+    // Optionally, update the state to reflect the changes
+    setValues({
+      ...values,
+      email: initialValuesLogin.email,
+      password: initialValuesLogin.password,
+    });
   };
 
   return (
@@ -274,6 +294,7 @@ const Form = () => {
                 ? "Don't have an account? Sign Up here."
                 : "Already have an account? Login here."}
             </Typography>
+            <Button onClick={handleTestUser} style={{textDecoration: "underline"}}>Test User</Button>
           </Box>
         </form>
       )}
